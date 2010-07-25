@@ -1,4 +1,5 @@
 ﻿using System.IO;
+using System.Text.RegularExpressions;
 
 namespace SolutionCreator.Commands
 {
@@ -31,6 +32,22 @@ namespace SolutionCreator.Commands
 
             writer.Write(contents);
 
+            writer.Close();
+            writer.Dispose();
+        }
+
+        protected void ReplaceContentsOfFile(string file, Regex searchFor, string replaceWith)
+        {
+            StreamReader reader = new StreamReader(file);
+            var contents = reader.ReadToEnd();
+            reader.Close();
+            reader.Dispose();
+
+            var match = searchFor.Match(contents);
+            contents = contents.Replace(match.Value, replaceWith);
+
+            StreamWriter writer = new StreamWriter(file);
+            writer.Write(contents);
             writer.Close();
             writer.Dispose();
         }

@@ -13,7 +13,7 @@ namespace SolutionCreator
             Console.Write("Name of project: ");
             var nameOfProject = Console.ReadLine();
 
-            ExtractTemplate template = new ExtractTemplate();
+            Zipper template = new Zipper();
             var extractTo = @"C:\temp\solutioncreator\templateextract\";
 
             template.Extract(templateToExtract, extractTo);

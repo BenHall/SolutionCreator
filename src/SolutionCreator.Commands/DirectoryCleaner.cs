@@ -14,20 +14,19 @@ namespace SolutionCreator.Commands
 
         public void Clean()
         {
-            foreach (var fileInfo in GetFiles(_solutionDirectory, "*.user"))
-                fileInfo.Delete();
+            string[] filesToDelete = new string[] {"*.user", "*.sln", "*.suo"};
+            string[] directoriesToDelete = new string[] { "_Resharper*", ".git" };
+            foreach (var pattern in filesToDelete)
+            {
+                foreach (var fileInfo in GetFiles(_solutionDirectory, pattern))
+                    fileInfo.Delete();
+            }
 
-            foreach (var fileInfo in GetFiles(_solutionDirectory, "*.suo"))
-                fileInfo.Delete();
-
-            foreach (var fileInfo in GetFiles(_solutionDirectory, "*.sln"))
-                fileInfo.Delete();
-
-            foreach (var directoryInfo in GetDirectories(_solutionDirectory, "_Resharper*"))
-                directoryInfo.Delete(true);
-
-            foreach (var directoryInfo in GetDirectories(_solutionDirectory, ".git"))
-                directoryInfo.Delete(true);
+            foreach (var pattern in directoriesToDelete)
+            {
+                foreach (var directoryInfo in GetDirectories(_solutionDirectory, pattern))
+                    directoryInfo.Delete(true);
+            }
         }
 
         private IEnumerable<DirectoryInfo> GetDirectories(string directory, string searchPattern)

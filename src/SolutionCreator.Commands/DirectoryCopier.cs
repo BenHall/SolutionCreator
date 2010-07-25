@@ -9,7 +9,7 @@ namespace SolutionCreator.Commands
             foreach (DirectoryInfo dir in source.GetDirectories())
                 Copy(dir, target.CreateSubdirectory(dir.Name));
             foreach (FileInfo file in source.GetFiles())
-                file.CopyTo(Path.Combine(target.FullName, file.Name));
+                file.CopyTo(Path.Combine(target.FullName, file.Name), true);
         }
     }
 }

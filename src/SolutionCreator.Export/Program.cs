@@ -10,7 +10,6 @@ namespace SolutionCreator.Export
         {
             Console.WriteLine("Point it at a directory and have a template ready to use...");
 
-            string solutionName = "NewProject";
             string from = @"C:\temp\solutioncreator\templateextract\";
             string to = @"C:\temp\solutioncreator\temptozip\";
 
@@ -20,9 +19,14 @@ namespace SolutionCreator.Export
             var directoryCleaner = new DirectoryCleaner(to);
             directoryCleaner.Clean();
 
-            ProjectExtracter extracter = new ProjectExtracter(to, solutionName);
+            ProjectExtracter extracter = new ProjectExtracter(to);
             extracter.ReplaceValuesWithPlaceholders();
-            
+            extracter.UpdateProjectFile();
+
+            Zipper template = new Zipper();
+
+            template.Zip(to, to + "tempto.zip");
+           
             Console.WriteLine("Created...");
             Console.ReadLine();
         }

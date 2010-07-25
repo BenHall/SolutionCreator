@@ -44,7 +44,7 @@
   <ItemGroup>
     <Compile Include="DirectoryCleaner.cs" />
     <Compile Include="DirectoryCopier.cs" />
-    <Compile Include="ExtractTemplate.cs" />
+    <Compile Include="Zipper.cs" />
     <Compile Include="ProjectCreator.cs" />
     <Compile Include="ProjectExtracter.cs" />
     <Compile Include="ProjectFiles.cs" />
