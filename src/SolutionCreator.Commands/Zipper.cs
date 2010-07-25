@@ -1,27 +1,4 @@
-﻿//using System.Text;
-//using Ionic.Zip;
-//using System.IO;
-
-//namespace SolutionCreator.Commands
-//{
-//    public class Zipper
-//    {
-//        public void Extract(string file, string extractTo)
-//        {
-//            using (var zip = ZipFile.Read(file))
-//            {
-//               zip.ExtractAll(extractTo,ExtractExistingFileAction.OverwriteSilently);
-//            }
-//        }
-
-//        public void Zip(string directory, string fileName)
-//        {
-//            ZipFile file = new ZipFile(Path.GetFileName(fileName));
-//            file.AddDirectory(directory);
-//            file.Save(fileName);
-//        }
-//    }
-//}
+﻿using System.Diagnostics;
 using System.Text;
 using System.IO;
 using TinySharpZip;
@@ -32,9 +9,11 @@ namespace SolutionCreator.Commands
     {
         public void Extract(string file, string extractTo)
         {
-            Stream zipStream = new FileStream(file, FileMode.Open);
-            ZipArchive.Extract(zipStream, extractTo);
-            zipStream.Close();
+            string argument = @"x " + file + " -o"+extractTo;
+            Process.Start(@"C:\Program Files\7-Zip\7z.exe", argument);
+            //Stream zipStream = new FileStream(file, FileMode.Open);
+            //ZipArchive.Extract(zipStream, extractTo);
+            //zipStream.Close();
         }
 
         public void Zip(string directory, string fileName)
