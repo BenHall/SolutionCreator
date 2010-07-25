@@ -4,12 +4,12 @@ using System.IO;
 
 namespace SolutionCreator.Commands
 {
-    public class ProjectCreator
+    public class ProjectCreator : ProjectModifier
     {
         private readonly string _solutionName;
         private readonly string _solutionLocation;
 
-        public ProjectCreator(string solutionName, string solutionLocation)
+        public ProjectCreator(string solutionName, string solutionLocation) : base(solutionLocation)
         {
             _solutionName = solutionName;
             _solutionLocation = solutionLocation;
@@ -110,30 +110,6 @@ namespace SolutionCreator.Commands
 
             StreamWriter writer = new StreamWriter(Path.Combine(_solutionLocation, _solutionName + ".sln"));
             writer.Write(contents);
-            writer.Close();
-            writer.Dispose();
-        }
-
-        private string[] FindFiles(string searchPattern)
-        {
-            return Directory.GetFiles(_solutionLocation, searchPattern, SearchOption.AllDirectories);
-        }
-
-        private void ReplaceContentsOfFile(string file, string searchFor, string replaceWith)
-        {
-            StreamReader reader = new StreamReader(file);
-
-            string contents = reader.ReadToEnd();
-
-            reader.Close();
-            reader.Dispose();
-
-            contents = contents.Replace(searchFor, replaceWith);
-
-            StreamWriter writer = new StreamWriter(file);
-
-            writer.Write(contents);
-
             writer.Close();
             writer.Dispose();
         }
