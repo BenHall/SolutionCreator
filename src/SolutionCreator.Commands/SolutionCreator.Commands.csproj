@@ -44,6 +44,7 @@
   <ItemGroup>
     <Compile Include="ExtractTemplate.cs" />
     <Compile Include="ProjectCreator.cs" />
+    <Compile Include="ProjectFiles.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

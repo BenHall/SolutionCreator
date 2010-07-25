@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using SolutionCreator.Commands;
 
 namespace SolutionCreator
@@ -11,15 +8,19 @@ namespace SolutionCreator
         static void Main(string[] args)
         {
             Console.WriteLine("Starting creator...");
+            Console.Write("Template: ");
+            var templateToExtract = Console.ReadLine();
+            Console.Write("Name of project: ");
+            var nameOfProject = Console.ReadLine();
+
             ExtractTemplate template = new ExtractTemplate();
-            var extractTo = @"C:\temp\solutioncreator\templateextract";
-            var templateToExtract = @"D:\SourceControl\SolutionCreator\example\MvcWebApplicationProjectTemplatev2.0.cs.zip";
+            var extractTo = @"C:\temp\solutioncreator\templateextract\";
 
             template.Extract(templateToExtract, extractTo);
 
-            ProjectCreator creator = new ProjectCreator("NewWebsite", extractTo);
-            creator.CreateSolutionFile();
-            creator.UpdateProjectFile();
+            ProjectCreator creator = new ProjectCreator(nameOfProject, extractTo);
+            var projectFiles = creator.UpdateProjectFile();
+            creator.CreateSolutionFile(projectFiles);
             creator.UpdateGlobalAsax();
             creator.UpdateAssemblyInfo();
             creator.UpdateFilesWithName();
