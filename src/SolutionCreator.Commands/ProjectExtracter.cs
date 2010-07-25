@@ -1,5 +1,4 @@
-﻿using System;
-using System.Text.RegularExpressions;
+﻿using System.Text.RegularExpressions;
 
 namespace SolutionCreator.Commands
 {
@@ -51,7 +50,7 @@ namespace SolutionCreator.Commands
         {
             //new Regex()
 
-            string s = string.Format("\\[assembly: {0}\\(\"(.*?)\"\\)\\]", value);
+            string s = string.Format(@"\[assembly: {0}\(""(.*?)""\)\]", value);
             return new Regex(s);
 
             //var escapeStart = Regex.Escape("[assembly:");
