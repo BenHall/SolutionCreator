@@ -48,15 +48,8 @@ namespace SolutionCreator.Commands
 
         private Regex CreateEscapedRegexForAssembly(string value)
         {
-            //new Regex()
-
             string s = string.Format(@"\[assembly: {0}\(""(.*?)""\)\]", value);
             return new Regex(s);
-
-            //var escapeStart = Regex.Escape("[assembly:");
-            //var middle = " {0}(\"{0}\")";
-            //var escapeEnd = Regex.Escape("]");
-            //return new Regex(escapeStart + string.Format(middle, value) + escapeEnd);
         }
 
         public void ReplaceValuesWithPlaceholders()

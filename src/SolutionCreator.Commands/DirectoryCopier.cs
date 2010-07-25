@@ -7,7 +7,10 @@ namespace SolutionCreator.Commands
         public void Copy(DirectoryInfo source, DirectoryInfo target)
         {
             foreach (DirectoryInfo dir in source.GetDirectories())
-                Copy(dir, target.CreateSubdirectory(dir.Name));
+            {
+                if(!dir.Name.StartsWith(".") && !dir.Name.StartsWith("_"))
+                    Copy(dir, target.CreateSubdirectory(dir.Name));
+            }
             foreach (FileInfo file in source.GetFiles())
                 file.CopyTo(Path.Combine(target.FullName, file.Name), true);
         }

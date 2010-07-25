@@ -7,7 +7,7 @@ namespace SolutionCreator
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("SolutionCreator");
+            Console.WriteLine("Solution Creator - Create a new project based off a template");
             if (args.Length != 3)
             {
                 PrintUsage();
@@ -15,22 +15,21 @@ namespace SolutionCreator
             }
 
             var templateToExtract = args[0];
-            var extractTo = args[1];
+            var solutionLocation = args[1];
             var nameOfProject = args[2];
 
             Zipper template = new Zipper();
 
-            template.Extract(templateToExtract, extractTo);
+            template.Extract(templateToExtract, solutionLocation);
 
-            ProjectCreator creator = new ProjectCreator(nameOfProject, extractTo);
+            ProjectCreator creator = new ProjectCreator(nameOfProject, solutionLocation);
             var projectFiles = creator.UpdateProjectFile();
             creator.CreateSolutionFile(projectFiles);
             creator.UpdateGlobalAsax();
             creator.UpdateAssemblyInfo();
             creator.UpdateFilesWithName();
 
-            Console.WriteLine("Created...");
-            Console.ReadLine();
+            Console.WriteLine("Created {0} at {1} based on {2}", nameOfProject, solutionLocation, templateToExtract);
         }
 
         private static void PrintUsage()

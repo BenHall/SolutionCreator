@@ -8,7 +8,7 @@ namespace SolutionCreator.Export
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("SolutionCreator exporter");
+            Console.WriteLine("Solution Exporter - Create a new re-usable template");
             if (args.Length != 3)
             {
                 PrintUsage();
@@ -23,20 +23,20 @@ namespace SolutionCreator.Export
 
             Process(from, to, zipName);
 
-            Console.WriteLine("Created...");
-            Console.ReadLine();
+            Console.WriteLine("Created {0} at {1} based on {2}", zipName, to, from);
         }
 
         private static void Process(string from, string to, string zipName)
         {
             DirectoryCopier copier = new DirectoryCopier();
-            copier.Copy(new DirectoryInfo(from), new DirectoryInfo(to));
+            var solutionDirectory = Path.Combine(to, "temp");
+            copier.Copy(new DirectoryInfo(from), new DirectoryInfo(solutionDirectory));
 
-            var directoryCleaner = new DirectoryCleaner(to);
+            var directoryCleaner = new DirectoryCleaner(solutionDirectory);
             directoryCleaner.Clean();
 
-            string solutionName = new DirectoryInfo(from).GetFiles("*.sln")[0].Name.Replace(".sln", "");
-            ProjectExtracter extracter = new ProjectExtracter(to, solutionName);
+            string solutionName = new DirectoryInfo(from).GetFiles("*.sln", SearchOption.AllDirectories)[0].Name.Replace(".sln", "");
+            ProjectExtracter extracter = new ProjectExtracter(solutionDirectory, solutionName);
             extracter.ReplaceValuesWithPlaceholders();
             extracter.UpdateAssemblyInfo();
             extracter.UpdateGlobalAsax();
@@ -44,7 +44,7 @@ namespace SolutionCreator.Export
 
             Zipper template = new Zipper();
 
-            template.Zip(to, Path.Combine(to, zipName));
+            template.Zip(solutionDirectory, Path.Combine(to, zipName));
         }
 
         private static void PrintUsage()

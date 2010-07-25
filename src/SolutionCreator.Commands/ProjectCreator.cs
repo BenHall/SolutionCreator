@@ -73,13 +73,16 @@ namespace SolutionCreator.Commands
 
         public void CreateSolutionFile(List<Project> projectFiles)
         {
-            var contents = "Microsoft Visual Studio Solution File, Format Version 11.00"; 
+            var contents = "Microsoft Visual Studio Solution File, Format Version 10.00"; 
 
             foreach (var proj in projectFiles)
             {
                 var projLocation = proj.Location.Replace(_solutionLocation, "");
+                if (projLocation.StartsWith("\\"))
+                    projLocation = projLocation.Remove(0, 1);
+
                 contents = contents + Environment.NewLine + 
-                           "Project(\"{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}\") = \"NewWebsite\", \"" + projLocation + "\", \"{" + proj.Guid + "}\"" 
+                           "Project(\"{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}\") = \"" + _solutionName + "\", \"" + projLocation + "\", \"{" + proj.Guid + "}\"" 
                                 + Environment.NewLine +
                               "EndProject";
             }
