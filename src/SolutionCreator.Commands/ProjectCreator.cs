@@ -43,14 +43,14 @@ namespace SolutionCreator.Commands
             }
         }
 
-        public List<ProjectFiles> UpdateProjectFile()
+        public List<Project> UpdateProjectFile()
         {
-            List<ProjectFiles> updatedFiles = new List<ProjectFiles>();
+            List<Project> updatedFiles = new List<Project>();
             var projectFiles = FindFiles("*.csproj");
             foreach (var proj in projectFiles)
             {
                 string guid = Guid.NewGuid().ToString();
-                updatedFiles.Add(new ProjectFiles { Location = proj, Guid = guid });
+                updatedFiles.Add(new Project { Location = proj, Guid = guid });
                 ReplaceContentsOfFile(proj, "$guid1$", guid);
                 ReplaceContentsOfFile(proj, "$targetframeworkversion$", "3.5");
             }
@@ -70,7 +70,7 @@ namespace SolutionCreator.Commands
             }
         }
 
-        public void CreateSolutionFile(List<ProjectFiles> projectFiles)
+        public void CreateSolutionFile(List<Project> projectFiles)
         {
             var contents = "Microsoft Visual Studio Solution File, Format Version 11.00"; 
 

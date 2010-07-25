@@ -1,6 +1,6 @@
 ﻿namespace SolutionCreator.Commands
 {
-    public class ProjectFiles
+    public class Project
     {
         public string Location { get; set; }
         public string Guid { get; set; }

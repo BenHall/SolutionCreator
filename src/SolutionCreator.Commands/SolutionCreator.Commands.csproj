@@ -47,7 +47,7 @@
     <Compile Include="Zipper.cs" />
     <Compile Include="ProjectCreator.cs" />
     <Compile Include="ProjectExtracter.cs" />
-    <Compile Include="ProjectFiles.cs" />
+    <Compile Include="Project.cs" />
     <Compile Include="ProjectModifier.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

@@ -13,7 +13,7 @@ namespace SolutionCreator.Commands
         {
         }
 
-        public List<ProjectFiles> UpdateProjectFile()
+        public List<Project> UpdateProjectFile()
         {
             foreach (var findFile in FindFiles("*.csproj"))
             {
