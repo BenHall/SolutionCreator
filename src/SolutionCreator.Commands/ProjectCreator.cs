@@ -53,6 +53,7 @@ namespace SolutionCreator.Commands
                 updatedFiles.Add(new Project { Location = proj, Guid = guid });
                 ReplaceContentsOfFile(proj, "$guid1$", guid);
                 ReplaceContentsOfFile(proj, "$targetframeworkversion$", "3.5");
+
             }
 
             return updatedFiles;

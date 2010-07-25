@@ -5,7 +5,7 @@ namespace SolutionCreator.Commands
 {
     public abstract class ProjectModifier
     {
-        private readonly string _solutionLocation;
+        protected readonly string _solutionLocation;
 
         protected ProjectModifier(string solutionLocation)
         {
@@ -44,12 +44,15 @@ namespace SolutionCreator.Commands
             reader.Dispose();
 
             var match = searchFor.Match(contents);
-            contents = contents.Replace(match.Value, replaceWith);
+            if (match.Success)
+            {
+                contents = contents.Replace(match.Value, replaceWith);
 
-            StreamWriter writer = new StreamWriter(file);
-            writer.Write(contents);
-            writer.Close();
-            writer.Dispose();
+                StreamWriter writer = new StreamWriter(file);
+                writer.Write(contents);
+                writer.Close();
+                writer.Dispose();
+            }
         }
     }
 }

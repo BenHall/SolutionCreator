@@ -6,7 +6,7 @@ namespace SolutionCreator.Export
 {
     class Program
     {
-        static void Main(string[] args)
+        static void Main()
         {
             Console.WriteLine("Point it at a directory and have a template ready to use...");
 
@@ -19,8 +19,11 @@ namespace SolutionCreator.Export
             var directoryCleaner = new DirectoryCleaner(to);
             directoryCleaner.Clean();
 
-            ProjectExtracter extracter = new ProjectExtracter(to);
+            string solutionName = new DirectoryInfo(from).GetFiles("*.sln")[0].Name.Replace(".sln", "");
+            ProjectExtracter extracter = new ProjectExtracter(to, solutionName);
             extracter.ReplaceValuesWithPlaceholders();
+            extracter.UpdateAssemblyInfo();
+            extracter.UpdateGlobalAsax();
             extracter.UpdateProjectFile();
 
             Zipper template = new Zipper();
