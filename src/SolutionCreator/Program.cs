@@ -7,14 +7,18 @@ namespace SolutionCreator
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Starting creator...");
-            Console.Write("Template: ");
-            var templateToExtract = Console.ReadLine();
-            Console.Write("Name of project: ");
-            var nameOfProject = Console.ReadLine();
+            Console.WriteLine("SolutionCreator");
+            if (args.Length != 3)
+            {
+                PrintUsage();
+                return;
+            }
+
+            var templateToExtract = args[0];
+            var extractTo = args[1];
+            var nameOfProject = args[2];
 
             Zipper template = new Zipper();
-            var extractTo = @"C:\temp\solutioncreator\templateextract\";
 
             template.Extract(templateToExtract, extractTo);
 
@@ -27,6 +31,12 @@ namespace SolutionCreator
 
             Console.WriteLine("Created...");
             Console.ReadLine();
+        }
+
+        private static void PrintUsage()
+        {
+            Console.WriteLine("Invalid arguments.");
+            Console.WriteLine("Usage:\tSolutionCreator.exe <TemplateToUse> <LocationOfSolution> <NameOfProject>");
         }
     }
 }
